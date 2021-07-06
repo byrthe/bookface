@@ -14,10 +14,10 @@ router.get('/register',(req,res)=>{
 
 //Register handle
 router.post('/register',(req,res)=>{
-    const {name,email, password, password2} = req.body;
+    const {name, email, birthdate, password, password2} = req.body;
     let errors = [];
     console.log(' Name ' + name+ ' email :' + email+ ' pass:' + password);
-    if(!name || !email || !password || !password2) {
+    if(!name || !email || !birthdate || !password || !password2) {
         errors.push({msg : "Please fill in all fields"})
     }
     //check if match
@@ -34,6 +34,7 @@ router.post('/register',(req,res)=>{
         errors : errors,
         name : name,
         email : email,
+        birthdate : birthdate,
         password : password,
         password2 : password2})
     } else {
@@ -42,12 +43,14 @@ router.post('/register',(req,res)=>{
             console.log(user);   
             if(user) {
                 errors.push({msg: 'email already registered'});
-                render(res,errors,name,email,password,password2);  
+                render(res,errors,name,email,birthdate,password,password2);  
             } else {
                 const newUser = new User({
                     name : name,
                     email : email,
+                    birthdate : birthdate,
                     password : password
+                    
                 });
                 //hash password
                 bcrypt.genSalt(10,(err,salt)=> 
@@ -67,7 +70,7 @@ router.post('/register',(req,res)=>{
                         .catch(value=> console.log(value));
                         
                     }));
-            } //ELSE statement ends here
+            }
         });
     };
 });
