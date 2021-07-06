@@ -7,6 +7,9 @@ const router = express.Router();
 const expressEjsLayout = require('express-ejs-layouts')
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+
+require("./config/passport")(passport);
 
 // models
 const TodoTask = require("./models/TodoTask");
@@ -15,6 +18,23 @@ dotenv.config();
 
 app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+//express session
+app.use(session({
+  secret : 'secret',
+  resave : true,
+  saveUninitialized : true
+ }));
+app.use(passport.initialize());
+app.use(passport.session());
+ //use flash
+ app.use(flash());
+ app.use((req,res,next)=> {
+   res.locals.success_msg = req.flash('success_msg');
+   res.locals.error_msg = req.flash('error_msg');
+   res.locals.error  = req.flash('error');
+ next();
+ });
+
 
 // db connect (todo list snippet)
 mongoose.set("useFindAndModify", false);
@@ -40,7 +60,7 @@ app.use(express.urlencoded({extended : false}));
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 
-
+// to do list methods underneath >>>
 // GET
 // app.get("/", (req, res) => {
 //   TodoTask.find({}, (err, tasks) => {
