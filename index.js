@@ -76,13 +76,14 @@ app.post('/dashboard', async (req, res) => {
   const todoTask = new TodoTask({
     content: req.body.content
   });
+  console.log('hello from the POST');
   try {
     await todoTask.save();
-    res.render("dashboard", { todoTasks: tasks, user: req.user });
-    // res.redirect("/dashboard");
+    console.log('managed to save to the db');
+    res.redirect("/dashboard");
   } catch (err) {
-    res.render("dashboard", { todoTasks: tasks, user: req.user });
-    
+    console.log('big error!');
+    res.redirect("/dashboard");
   }
 });
 
@@ -92,7 +93,7 @@ app
 .get((req, res) => {
   const id = req.params.id;
   TodoTask.find({}, (err, tasks) => {
-    res.render("dashboard.ejs", { todoTasks: tasks, idTask: id });
+    res.render("/dashboardEdit", { todoTasks: tasks, idTask: id, user: req.user });
   });
 })
 .post((req, res) => {
@@ -111,6 +112,11 @@ app.route("/remove/:id").get((req, res) => {
   res.redirect("/dashboard");
   });
 });
+
+
+
+
+
 
 
 //   // to do list methods underneath >>>
