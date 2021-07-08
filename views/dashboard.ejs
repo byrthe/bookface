@@ -1,20 +1,115 @@
-<html>
-    <head>
-        <title>Todo App</title>
-        <link rel="stylesheet" href="/static/stylesheets/style.css" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        </head>
-    <section>
-        <h1>Dashboard</h1>
-        <p>Welcome <%= user.name %></p>
-        <p>your email address is: <%= user.email %></p>
-        <p>your birthdate is: <%= user.birthdate %></p>
-        <a href="/users/logout">Logout</a>
-    </section>
-    <section>
-        
+<div class="logoutbox"></div>
+    <button class="btn"><a href="/users/logout">Logout</a></button>
+</div>
+
+<div class="container">
+    <div class="col-lg-2 col-md-2 col-sm-1">
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-10">
+        <div class="panel profile-cover">
+            <div class="profile-cover__img">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgntn71SkMxNbs8Fd4KGuOVHiWt_NZrVqMKg&usqp=CAU" alt="" />
+                
+            </div>
+            <div class="profile-cover__action bg--img" data-overlay="0.3">
+                
+            </div>
+            <div class="profile-cover__info">
+                
+                <ul class="nav">
+                    <li><h3 class="h3">Welcome <%= user.name %></h3></li>
+                    <li><%= user.email %></li>
+                    <li><%= user.birthdate %></li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Activity Feed</h3>
+            </div>
+            <div class="panel-content panel-activity">
+                <form action="#" class="panel-activity__status">
+                    <textarea name="user_activity" placeholder="Share what you've been up to..." class="form-control"></textarea>
+                    <div class="actions">
+                        <div class="btn-group">
+                            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Image">
+                                <i class="fa fa-image"></i>
+                            </button>
+                            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Video">
+                                <i class="fa fa-video-camera"></i>
+                            </button>
+                            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Idea">
+                                <i class="fa fa-lightbulb-o"></i>
+                            </button>
+                            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Question">
+                                <i class="fa fa-question-circle-o"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-rounded btn-info">
+                            Post
+                        </button>
+                    </div>
+                </form>
+                <ul class="panel-activity__list">
+                    <li>
+                        <i class="activity__list__icon fa fa-question-circle-o"></i>
+                        <div class="activity__list__header">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgntn71SkMxNbs8Fd4KGuOVHiWt_NZrVqMKg&usqp=CAU" alt="" />
+                            <a href="#"><%= user.name %></a> Posted: 
+                        </div>
+                        <div class="activity__list__body entry-content">
+                            <p>
+                                <strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit. Voluptatibus ab a nostrum repudiandae dolorem ut quaerat veniam asperiores, rerum voluptatem magni dolores corporis!
+                                <em>Molestiae commodi nesciunt a, repudiandae repellendus ea.</em>
+                            </p>
+                        </div>
+                        <div class="activity__list__footer">
+                            
+                            <span> <i class="fa fa-clock"></i><%= user.date %></span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="activity__list__icon fa fa-question-circle-o"></i>
+                        <div class="activity__list__header">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgntn71SkMxNbs8Fd4KGuOVHiWt_NZrVqMKg&usqp=CAU" alt="" />
+                            <a href="#"><%= user.name %></a> Posted: 
+                        </div>
+                        <div class="activity__list__body entry-content">
+                            <p>
+                                <strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit. Voluptatibus ab a nostrum repudiandae dolorem ut quaerat veniam asperiores, rerum voluptatem magni dolores corporis!
+                                <em>Molestiae commodi nesciunt a, repudiandae repellendus ea.</em>
+                            </p>
+                        </div>
+                        <div class="activity__list__footer">
+                            
+                            <span> <i class="fa fa-clock"></i><%= user.date %></span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="activity__list__icon fa fa-question-circle-o"></i>
+                        <div class="activity__list__header">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgntn71SkMxNbs8Fd4KGuOVHiWt_NZrVqMKg&usqp=CAU" alt="" />
+                            <a href="#"><%= user.name %></a> Posted: 
+                        </div>
+                        <div class="activity__list__body entry-content">
+                            <p>
+                                <strong>Lorem ipsum dolor sit amet</strong>, consectetur adipisicing elit. Voluptatibus ab a nostrum repudiandae dolorem ut quaerat veniam asperiores, rerum voluptatem magni dolores corporis!
+                                <em>Molestiae commodi nesciunt a, repudiandae repellendus ea.</em>
+                            </p>
+                        </div>
+                        <div class="activity__list__footer">
+                            
+                            <span> <i class="fa fa-clock"></i><%= user.date %></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-sm-1">
+    </div>
+</div>
+<section>
         <div class="todo-container">
             <h2>To-Do List</h2>
             <div class="todo">
@@ -38,7 +133,4 @@
                 </ul>
             </div>
     </section>
-    <section>
 
-    </section>
-</html>
