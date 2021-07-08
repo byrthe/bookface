@@ -19,6 +19,7 @@ dotenv.config();
 
 app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+
 //express session
 app.use(session({
   secret : 'secret',
@@ -88,21 +89,36 @@ app.get("/dashboard", ensureAuthenticated, (req, res) => {
 //   }
 // });
 
+//previously working code without the user included in the post:
+// //POST 
+// app.post('/',async (req, res) => {
+//   // console.log(req.body.content)
+//   const todoTask = new TodoTask({
+//   content: req.body.content
+//   });
+//   try {
+//   await todoTask.save();
+//   res.redirect("/dashboard");
+//   } catch (err) {
+//   res.redirect("/dashboard");
+//   }
+// });
 
-//POST 
-app.post('/',async (req, res) => {
-  // console.log(req.body.content)
-  const todoTask = new TodoTask({
-  content: req.body.content
-  });
+// jacopo's edit to add the user to the post
+app.post('/', async (req, res) => {
   try {
-  await todoTask.save();
-  res.redirect("/dashboard");
+    const todoTask = new TodoTask({ 
+      content: req.body.content
+    });
+    
+    todoTask.author = req.user.name;
+    await todoTask.save();
+    req.flash('success', 'Post succefully created');
+    res.redirect('/dashboard');
   } catch (err) {
-  res.redirect("/dashboard");
+    req.flash('error', err);
   }
-  });
-
+})
 
   // UPDATE
 app

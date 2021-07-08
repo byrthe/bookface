@@ -29,6 +29,7 @@
             </div>
 
             <div class="panel-content panel-activity">
+
                 <form action="/" method="POST" class="panel-activity__status">
                     <textarea name="content" type="text" placeholder="Share what you've been up to..." class="form-control"></textarea>
                     <div class="actions">
@@ -57,7 +58,7 @@
                             <i class="activity__list__icon fa fa-question-circle-o"></i>
                             <div class="activity__list__header">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgntn71SkMxNbs8Fd4KGuOVHiWt_NZrVqMKg&usqp=CAU" alt="" />
-                                <a href="#"><%= user.name %></a> Posted: 
+                                <a href="#"><%= details.author %></a> Posted: 
                             </div>
                             <div class="activity__list__body entry-content">
                                 <p>
@@ -71,7 +72,6 @@
                                 </a>
                             </div>
                             <div class="activity__list__footer">
-                                
                                 <span> <i class="fa fa-clock"></i><%= details.date %></span>
                             </div>
                         </li>
