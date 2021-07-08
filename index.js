@@ -7,6 +7,8 @@ const expressEjsLayout = require('express-ejs-layouts')
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const {ensureAuthenticated} = require("./config/auth.js")
+
 
 require("./config/passport")(passport);
 
@@ -59,44 +61,65 @@ app.use(express.urlencoded({extended : false}));
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 
-// to do list methods underneath >>>
+// trying to up the to do list on the dashboard page >>>
 // GET
-app.get("/todo", (req, res) => {
+app.get("/dashboard", ensureAuthenticated, (req, res) => {
   TodoTask.find({}, (err, tasks) => {
-    console.log('hello');
-    //   console.log(tasks);
-    res.render("todo.ejs", { todoTasks: tasks });
+    console.log('hello on the dashboard');
+      console.log(tasks);
+      res.render("dashboard", { todoTasks: tasks, user: req.user });
     });
   });
 
 //POST 
+// app.post("dashboard", async (req, res) => {
+//   console.log('Got body:', req.body);
+//   const todoTask = new TodoTask({
+//     content: req.body.content
+//   });
+//   console.log('hello from the POST');
+//   try {
+//     await todoTask.save();
+//     console.log('managed to save to the db');
+//     res.redirect("/dashboard");
+//   } catch (err) {
+//     console.log('big error!');
+//     res.redirect("/dashboard");
+//   }
+// });
+
+
+//POST 
 app.post('/',async (req, res) => {
+  // console.log(req.body.content)
   const todoTask = new TodoTask({
-    content: req.body.content
+  content: req.body.content
   });
   try {
-    await todoTask.save();
-    res.redirect("/todo");
+  await todoTask.save();
+  res.redirect("/dashboard");
   } catch (err) {
-    res.redirect("/todo");
+  res.redirect("/dashboard");
   }
-});
+  });
 
 
-  //UPDATE
+  // UPDATE
 app
 .route("/edit/:id")
 .get((req, res) => {
   const id = req.params.id;
+  console.log(id)
   TodoTask.find({}, (err, tasks) => {
-    res.render("todoEdit.ejs", { todoTasks: tasks, idTask: id });
+    res.render("dashboardEdit", { todoTasks: tasks, idTask: id, user: req.user });
   });
 })
 .post((req, res) => {
   const id = req.params.id;
+  console.log(id)
   TodoTask.findByIdAndUpdate(id, { content: req.body.content }, err => {
     if (err) return res.send(500, err);
-    res.redirect("/todo");
+    res.redirect("/dashboard");
   });
 });
 
@@ -105,9 +128,64 @@ app.route("/remove/:id").get((req, res) => {
   const id = req.params.id;
   TodoTask.findByIdAndRemove(id, err => {
   if (err) return res.send(500, err);
-  res.redirect("/todo");
+  res.redirect("/dashboard");
   });
-  });
+});
+
+
+
+
+
+
+
+//   // to do list methods underneath >>>
+// // GET
+// app.get("/todo", (req, res) => {
+//   TodoTask.find({}, (err, tasks) => {
+//     console.log('hello');
+//     //   console.log(tasks);
+//     res.render("todo.ejs", { todoTasks: tasks });
+//     });
+//   });
+
+// //POST 
+// app.post('/',async (req, res) => {
+//   const todoTask = new TodoTask({
+//     content: req.body.content
+//   });
+//   try {
+//     await todoTask.save();
+//     res.redirect("/todo");
+//   } catch (err) {
+//     res.redirect("/todo");
+//   }
+// });
+
+// //UPDATE
+// app
+// .route("/edit/:id")
+// .get((req, res) => {
+//   const id = req.params.id;
+//   TodoTask.find({}, (err, tasks) => {
+//     res.render("todoEdit.ejs", { todoTasks: tasks, idTask: id });
+//   });
+// })
+// .post((req, res) => {
+//   const id = req.params.id;
+//   TodoTask.findByIdAndUpdate(id, { content: req.body.content }, err => {
+//     if (err) return res.send(500, err);
+//     res.redirect("/todo");
+//   });
+// });
+
+// //DELETE
+// app.route("/remove/:id").get((req, res) => {
+//   const id = req.params.id;
+//   TodoTask.findByIdAndRemove(id, err => {
+//   if (err) return res.send(500, err);
+//   res.redirect("/todo");
+//   });
+// });
 
 
 
