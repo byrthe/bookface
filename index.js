@@ -72,32 +72,51 @@ app.get("/dashboard", ensureAuthenticated, (req, res) => {
   });
 
 //POST 
-app.post('/dashboard', async (req, res) => {
-  const todoTask = new TodoTask({
-    content: req.body.content
-  });
-  console.log('hello from the POST');
-  try {
-    await todoTask.save();
-    console.log('managed to save to the db');
-    res.redirect("/dashboard");
-  } catch (err) {
-    console.log('big error!');
-    res.redirect("/dashboard");
-  }
-});
+// app.post("dashboard", async (req, res) => {
+//   console.log('Got body:', req.body);
+//   const todoTask = new TodoTask({
+//     content: req.body.content
+//   });
+//   console.log('hello from the POST');
+//   try {
+//     await todoTask.save();
+//     console.log('managed to save to the db');
+//     res.redirect("/dashboard");
+//   } catch (err) {
+//     console.log('big error!');
+//     res.redirect("/dashboard");
+//   }
+// });
 
-  //UPDATE
+
+//POST 
+app.post('/',async (req, res) => {
+  // console.log(req.body.content)
+  const todoTask = new TodoTask({
+  content: req.body.content
+  });
+  try {
+  await todoTask.save();
+  res.redirect("/dashboard");
+  } catch (err) {
+  res.redirect("/dashboard");
+  }
+  });
+
+
+  // UPDATE
 app
 .route("/edit/:id")
 .get((req, res) => {
   const id = req.params.id;
+  console.log(id)
   TodoTask.find({}, (err, tasks) => {
-    res.render("/dashboardEdit", { todoTasks: tasks, idTask: id, user: req.user });
+    res.render("dashboardEdit", { todoTasks: tasks, idTask: id, user: req.user });
   });
 })
 .post((req, res) => {
   const id = req.params.id;
+  console.log(id)
   TodoTask.findByIdAndUpdate(id, { content: req.body.content }, err => {
     if (err) return res.send(500, err);
     res.redirect("/dashboard");
