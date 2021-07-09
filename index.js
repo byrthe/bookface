@@ -62,7 +62,29 @@ app.use(express.urlencoded({extended : false}));
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 
-// trying to up the to do list on the dashboard page >>>
+
+// HALL 
+app.get('/hall', ensureAuthenticated, (req, res) => {
+  console.log('hello from the dancehall');
+  TodoTask.find({}, (err, tasks) => {
+      console.log(tasks);
+      res.render("hall", { todoTasks: tasks, user: req.user });
+    });
+});
+
+// FLOOR
+app.get('/floor', ensureAuthenticated, (req, res) => {
+  console.log('hello from the dancefloor');
+  TodoTask.find({}, (err, tasks) => {
+      // db.todoTasks.find({'name': 'a'})
+      console.log(tasks);
+      res.render("floor", { todoTasks: tasks, user: req.user });
+    });
+});
+
+
+
+// DASHBOARD
 // GET
 app.get("/dashboard", ensureAuthenticated, (req, res) => {
   TodoTask.find({}, (err, tasks) => {
@@ -73,22 +95,6 @@ app.get("/dashboard", ensureAuthenticated, (req, res) => {
   });
 
 //POST 
-// app.post("dashboard", async (req, res) => {
-//   console.log('Got body:', req.body);
-//   const todoTask = new TodoTask({
-//     content: req.body.content
-//   });
-//   console.log('hello from the POST');
-//   try {
-//     await todoTask.save();
-//     console.log('managed to save to the db');
-//     res.redirect("/dashboard");
-//   } catch (err) {
-//     console.log('big error!');
-//     res.redirect("/dashboard");
-//   }
-// });
-
 //previously working code without the user included in the post:
 // //POST 
 // app.post('/',async (req, res) => {
