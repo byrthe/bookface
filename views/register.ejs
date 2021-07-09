@@ -1,51 +1,96 @@
-<h1>Register</h1>
-<%- include ('./partials/messages') %>
-<form action="/users/register" method="POST">
-<div>
-    <label for="name">Name</label>
-    <input
-      type="name"
-      name="name"
-      placeholder="Enter Name"
-      value="<%= typeof name != 'undefined' ? name : '' %>"
-    />
-  
-</div>
-<div>
-    <label for="email">Email</label>
-    <input
-      type="email"
-      name="email"
-      placeholder="Enter Email"
-      value="<%= typeof email != 'undefined' ? email : '' %>"
-    />
-  </div>
-  <div>
-    <label for="birthdate">Birthdate</label>
-    <input type="birthdate" name="birthdate" placeholder="dd/mm/yyyy" 
-        value="<%= typeof birthdate != 'undefined' ? birthdate : '' %>"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link href="/static/stylesheets/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">bookface</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="floor" tabindex="-1" aria-disabled="true">floor</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users/logout" tabindex="-1" aria-disabled="true">logout</a>
+              </li>-->
+            </ul>
+            <!-- <form class="d-flex" method="GET">
+              <input class="form-control me-2" name="profileSearch" type="search" placeholder="search for a user" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+          </div>
+        </div>
+      </nav>
+  </header>    
+
+
+  <div class="test">
+    <h1>Register</h1>
+    <%- include ('./partials/messages') %>
+    <form action="/users/register" method="POST">
+    <div class="ecart">
+        <label for="name">Name</label>
+        <input
+          type="name"
+          name="name"
+          placeholder="Enter Name"
+          value="<%= typeof name != 'undefined' ? name : '' %>"
         />
     </div>
-  <div >
-    <label for="password">Password</label>
-    <input
-      type="password"
-      name="password"
-      placeholder="Create Password"
-      value="<%= typeof password != 'undefined' ? password : '' %>"
-    />
+    <div class="ecart">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter Email"
+          value="<%= typeof email != 'undefined' ? email : '' %>"
+        />
+      </div>
+      <div class="ecart">
+        <label for="birthdate">Birthdate</label>
+        <input type="birthdate" name="birthdate" placeholder="dd/mm/yyyy" 
+            value="<%= typeof birthdate != 'undefined' ? birthdate : '' %>"
+            />
+      </div>
+      <div  class="ecart">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Create Password"
+          value="<%= typeof password != 'undefined' ? password : '' %>"
+        />
+      </div>
+      <div  class="ecart">
+        <label for="password2">Confirm PW</label>
+        <input
+          type="password"
+          name="password2"
+          placeholder="Confirm Pw"
+          value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+        />
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary btn-block">
+        Register
+      </button>
+    </form>
+    <p >Have An Account? <a href="/users/login" style="text-decoration: none;">Login</a></p>
   </div>
-  <div >
-    <label for="password2">Confirm Password</label>
-    <input
-      type="password"
-      name="password2"
-      placeholder="Confirm Password"
-      value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-    />
-  </div>
-  <button type="submit" class="btn btn-primary btn-block">
-    Register
-  </button>
-</form>
-<p >Have An Account? <a href="/users/login">Login</a></p>
+
+<script>
+  feather.replace();
+</script>

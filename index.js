@@ -66,7 +66,6 @@ app.use(express.urlencoded({extended : false}));
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 
-// trying to up the to do list on the dashboard page >>>
 // GET
 app.get("/dashboard", ensureAuthenticated, (req, res) => {
   TodoTask.find({}, (err, tasks) => {
@@ -76,37 +75,24 @@ app.get("/dashboard", ensureAuthenticated, (req, res) => {
     }).sort({$natural:-1});
   });
 
-//POST 
-// app.post("dashboard", async (req, res) => {
-//   console.log('Got body:', req.body);
-//   const todoTask = new TodoTask({
-//     content: req.body.content
-//   });
-//   console.log('hello from the POST');
-//   try {
-//     await todoTask.save();
-//     console.log('managed to save to the db');
-//     res.redirect("/dashboard");
-//   } catch (err) {
-//     console.log('big error!');
-//     res.redirect("/dashboard");
-//   }
-// });
 
-//previously working code without the user included in the post:
-// //POST 
-// app.post('/',async (req, res) => {
-//   // console.log(req.body.content)
-//   const todoTask = new TodoTask({
-//   content: req.body.content
-//   });
-//   try {
-//   await todoTask.save();
-//   res.redirect("/dashboard");
-//   } catch (err) {
-//   res.redirect("/dashboard");
-//   }
-// });
+// HALL 
+app.get('/hall', ensureAuthenticated, (req, res) => {
+  TodoTask.find({}, (err, tasks) => {
+      console.log(tasks);
+      res.render("hall", { todoTasks: tasks, user: req.user });
+    });
+});
+
+
+//FLOOR
+app.get('/floor', ensureAuthenticated, (req, res) => {
+  TodoTask.find({'author': 'byrthe'}, (err, tasks) => {
+      console.log(req.user.name);
+      const authorname = req.user.name;
+      res.render("floor", { todoTasks: tasks, user: req.user, authorname});
+    });
+});
 
 // jacopo's edit to add the user to the post
 app.post('/', async (req, res) => {
@@ -114,7 +100,6 @@ app.post('/', async (req, res) => {
     const todoTask = new TodoTask({ 
       content: req.body.content
     });
-    
     todoTask.author = req.user.name;
     await todoTask.save();
     req.flash('success', 'Post succefully created');
