@@ -7,6 +7,7 @@ const expressEjsLayout = require('express-ejs-layouts')
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
 const {ensureAuthenticated} = require("./config/auth.js")
 
 
@@ -20,11 +21,14 @@ dotenv.config();
 app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+// app.use(cookieParser('secret'));
+
 //express session
 app.use(session({
   secret : 'secret',
   resave : true,
-  saveUninitialized : true
+  saveUninitialized : true,
+  cookie: { maxAge: 60000 }
  }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -62,39 +66,33 @@ app.use(express.urlencoded({extended : false}));
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 
-
-// HALL 
-app.get('/hall', ensureAuthenticated, (req, res) => {
-  console.log('hello from the dancehall');
-  TodoTask.find({}, (err, tasks) => {
-      console.log(tasks);
-      res.render("hall", { todoTasks: tasks, user: req.user });
-    });
-});
-
-// FLOOR
-app.get('/floor', ensureAuthenticated, (req, res) => {
-  console.log('hello from the dancefloor');
-  TodoTask.find({}, (err, tasks) => {
-      // db.todoTasks.find({'name': 'a'})
-      console.log(tasks);
-      res.render("floor", { todoTasks: tasks, user: req.user });
-    });
-});
-
-
-
-// DASHBOARD
+// trying to up the to do list on the dashboard page >>>
 // GET
 app.get("/dashboard", ensureAuthenticated, (req, res) => {
   TodoTask.find({}, (err, tasks) => {
     console.log('hello on the dashboard');
       console.log(tasks);
       res.render("dashboard", { todoTasks: tasks, user: req.user });
-    });
+    }).sort({$natural:-1});
   });
 
 //POST 
+// app.post("dashboard", async (req, res) => {
+//   console.log('Got body:', req.body);
+//   const todoTask = new TodoTask({
+//     content: req.body.content
+//   });
+//   console.log('hello from the POST');
+//   try {
+//     await todoTask.save();
+//     console.log('managed to save to the db');
+//     res.redirect("/dashboard");
+//   } catch (err) {
+//     console.log('big error!');
+//     res.redirect("/dashboard");
+//   }
+// });
+
 //previously working code without the user included in the post:
 // //POST 
 // app.post('/',async (req, res) => {
@@ -134,7 +132,7 @@ app
   console.log(id)
   TodoTask.find({}, (err, tasks) => {
     res.render("dashboardEdit", { todoTasks: tasks, idTask: id, user: req.user });
-  });
+  }).sort({$natural:-1});;
 })
 .post((req, res) => {
   const id = req.params.id;

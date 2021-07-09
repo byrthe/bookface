@@ -1,14 +1,25 @@
-<div class="logoutbox"></div>
-    <button class="btn"><a href="/users/logout">Logout</a></button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/stylesheets/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://kit.fontawesome.com/45e38e596f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>     
 
 <div class="container">
     <div class="col-lg-2 col-md-2 col-sm-1">
     </div>
-    <div class="col-lg-8 col-md-8 col-sm-10">
+    <!-- <div class="col-lg-8 col-md-8 col-sm-10"> -->
+    <div class="card-body">
         <div class="panel profile-cover">
             <div class="profile-cover__img">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgntn71SkMxNbs8Fd4KGuOVHiWt_NZrVqMKg&usqp=CAU" alt="" />
+                <img src="https://images.squarespace-cdn.com/content/v1/575a6067b654f9b902f452f4/1552683653140-0UUVQSSUEWVC73AWAEQG/300Logo.png" alt="" />
                 
             </div>
             <div class="profile-cover__action bg--img" data-overlay="0.3">
@@ -47,17 +58,17 @@
                                 <i class="fa fa-question-circle-o"></i>
                             </button>
                         </div>
-                        <button type="submit" class="btn btn-sm btn-rounded btn-info">
+                        <button type="submit" class="btn btn-sm btn-rounded btn-primary">
                             Post
                         </button>
                     </div>
                 </form>
                 <ul class="panel-activity__list">
                     <% todoTasks.forEach(details => { %>
-                        <li>
+                                                <li>
                             <i class="activity__list__icon fa fa-question-circle-o"></i>
                             <div class="activity__list__header">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgntn71SkMxNbs8Fd4KGuOVHiWt_NZrVqMKg&usqp=CAU" alt="" />
+                                <img src="https://images.squarespace-cdn.com/content/v1/575a6067b654f9b902f452f4/1552683653140-0UUVQSSUEWVC73AWAEQG/300Logo.png" alt="" />
                                 <a href="#"><%= details.author %></a> Posted: 
                             </div>
                             <div class="activity__list__body entry-content">
@@ -65,17 +76,24 @@
                                     <%= details.content %>
                                 </p>
                                 <a href="/edit/<%= details._id %>" class="edit">
-                                <span class="fas fa-edit">edit</span>
+                                <button type="button" class="btn btn-outline-secondary">Edit</button>
+                                <!-- <span class="fas fa-edit">edit</span> -->
                                 </a>
                                 <a href="/remove/<%= details._id %>" class="remove">
-                                <span class="fas fa-times">remove</span>
+                                <button type="button" class="btn btn-outline-secondary">Remove</button>
+                                <!-- <span class="fas fa-times">remove</span> -->
                                 </a>
                             </div>
                             <div class="activity__list__footer">
-                                <span> <i class="fa fa-clock"></i><%= details.date %></span>
+                                <!-- <span> <i class="fa fa-clock"></i><%= details.date %></span> -->
+                                
+                                     <!-- <i class="form-control2" data-feather="at-sign"></i> -->
+                                     <span>     <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit', hour: 'numeric', minute: 'numeric'}).format(new Date()) %></span>
+                                <!-- <span>     <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></span> -->
+                                    <!-- <span> <i class="fa fa-clock"></i><%= details.date.toUTCString().substring(4, 25); %></span>    -->
                             </div>
                         </li>
-                    <% }) %>
+                        <% }) %>
                 </ul>
             </div>
         </div>
@@ -83,5 +101,7 @@
     <div class="col-lg-2 col-sm-1">
     </div>
 </div>
-
+<script>
+    feather.replace();
+  </script>
 

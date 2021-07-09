@@ -1,11 +1,19 @@
-<html>
-    <head>
-        <title>Todo App</title>
-        <link rel="stylesheet" href="/static/stylesheets/style.css" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        </head>
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="/static/stylesheets/style.css" rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+            <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+            <script src="https://kit.fontawesome.com/45e38e596f.js" crossorigin="anonymous"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        </head>     
+        
+<!--         
     <section>
         <h1>Dashboard</h1>
         <p>Welcome <%= user.name %></p>
@@ -20,6 +28,7 @@
         <div class="todo">
             <form action="" method="POST" class="todo-header">
                 <input type="text" name="content">
+                <i data-feather="edit"></i>
                 <button type="submit"><span class="fas fa-plus"></span></button>
             </form>
         <ul class="todo-list">
@@ -35,9 +44,9 @@
         <% } else { %>
         <li class="todo-list-item">
         <div class="todo-list-item-name"><%= details.content %></div>
-        <a href="/edit/<%= details._id %>" class="edit"> <span class="fas fa-edit"></span>
+        <a href="/edit/<%= details._id %>" class="edit"> <P>edit</P>
         </a>
-        <a href="/remove/<%= details._id %>" class="remove"> <span class="fas fa-times"></span>
+        <a href="/remove/<%= details._id %>" class="remove"> <P>remove</P>
         </a>
         </li>
             <% } %>
@@ -48,5 +57,116 @@
     <section>
 
     </section>
-</html>
+    <script>
+        feather.replace();
+      </script>
+</html> -->
+
+
+
+<div class="container">
+    <div class="col-lg-2 col-md-2 col-sm-1">
+    </div>
+    <!-- <div class="col-lg-8 col-md-8 col-sm-10"> -->
+        <div class="card-body">
+        <div class="panel profile-cover">
+            <div class="profile-cover__img">
+                <img src="https://images.squarespace-cdn.com/content/v1/575a6067b654f9b902f452f4/1552683653140-0UUVQSSUEWVC73AWAEQG/300Logo.png" alt="" />
+                
+            </div>
+            <div class="profile-cover__action bg--img" data-overlay="0.3">
+                
+            </div>
+            <div class="profile-cover__info">
+                
+                <ul class="nav">
+                    <li><h3 class="h3">Welcome <%= user.name %></h3></li>
+                    <li><%= user.email %></li>
+                    <li><%= user.birthdate %></li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Activity Feed</h3>
+            </div>
+
+            <div class="panel-content panel-activity">
+
+                <form action="/" method="POST" class="panel-activity__status">
+                    <textarea name="content" type="text" placeholder="Share what you've been up to..." class="form-control"></textarea>
+                    <div class="actions">
+                        <div class="btn-group">
+                            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Image">
+                                <i class="fa fa-image"></i>
+                            </button>
+                            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Video">
+                                <i class="fa fa-video-camera"></i>
+                            </button>
+                            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Idea">
+                                <i class="fa fa-lightbulb-o"></i>
+                            </button>
+                            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Question">
+                                <i class="fa fa-question-circle-o"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-rounded btn-primary">
+                            Post
+                        </button>
+                    </div>
+                </form>
+                <ul class="panel-activity__list">
+
+                    <% todoTasks.forEach(details => { %>
+                        <% if (details._id == idTask) { %>
+                            <li class="todo-list-item">
+                            <form action="/edit/<%= details._id %>" method="POST">
+                            <!-- <input type="text" value="<%= details.content %>" name="content"> -->
+                            <textarea name="content" type="text" placeholder="" class="form-control" name="content"><%= details.content %></textarea>
+                            <button type="submit" class="btn btn-danger">Confirm</button>
+                            <!-- <button type="submit">Confirm</button> -->
+                            <!-- <a href="/dashboard" class="cancel">Cancel</a> -->
+                            <button onclick="location.href='/dashboard'" type="button" class="btn btn-secondary">
+                               Cancel</button>
+                            </form>
+                            </li>
+                            
+                            <% } else { %>
+
+
+                                
+                        <li>
+                            <i class="activity__list__icon fa fa-question-circle-o"></i>
+                            <div class="activity__list__header">
+                                <img src="https://images.squarespace-cdn.com/content/v1/575a6067b654f9b902f452f4/1552683653140-0UUVQSSUEWVC73AWAEQG/300Logo.png" alt="" />
+                                <a href="#"><%= details.author %></a> Posted: 
+                            </div>
+                            <div class="activity__list__body entry-content">
+                                <p>
+                                    <%= details.content %>
+                                </p>
+                                <a href="/edit/<%= details._id %>" class="edit">
+                                <button type="button" class="btn btn-outline-secondary">Edit</button>
+                                <!-- <span class="fas fa-edit">edit</span> -->
+                                </a>
+                                <a href="/remove/<%= details._id %>" class="remove">
+                                <button type="button" class="btn btn-outline-secondary">Remove</button>
+                                <!-- <span class="fas fa-times">remove</span> -->
+                                </a>
+                            </div>
+                            <div class="activity__list__footer">
+                                <!-- <span> <i class="fa fa-clock"></i><%= details.date %></span> -->
+                                <span> <i class="fa fa-clock"></i><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></span>
+                            </div>
+                        </li>
+                        <% } %>
+                        <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-sm-1">
+    </div>
+</div>
+
 

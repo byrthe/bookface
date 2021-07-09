@@ -1,18 +1,42 @@
-<h1> Login </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link href="/static/stylesheets/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>      
+<div>
+
 <%- include ('./partials/messages') %>
-<form action="/users/login" method="POST">
-<div>
-<label for="email">Email</label>
-<input type="email" name="email" placeholder="Enter Email"/>
+<form class="test" action="/users/login" method="POST">
+  <h1> Login </h1>
+
+<div class="form-control2">
+    <!-- <label for="email">Email</label> -->
+    <i data-feather="at-sign"></i>
+    <input class="inputed" type="email" name="email" placeholder="Email"/>
 </div>
-<div>
-    <label for="password">Password</label>
-    <input
+
+
+<div class="form-control2">
+     <i data-feather="key"></i>
+    <!-- <label for="password">Password</label> -->
+    <input class="inputed"
       type="password"
       name="password"
-      placeholder="Enter Password"
+      placeholder="Password"
     />
 </div>
+<!-- <input type="button" class="btn btn-primary btn-block" value="Sign In"> -->
 <button type="submit" class="btn btn-primary btn-block">Login</button>
-   
 </form>
+</div>
+
+<script>
+  feather.replace();
+</script>
