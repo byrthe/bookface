@@ -76,25 +76,27 @@ app.get("/dashboard", ensureAuthenticated, (req, res) => {
   });
 
 
-// HALL 
-app.get('/hall', ensureAuthenticated, (req, res) => {
-  TodoTask.find({}, (err, tasks) => {
-      console.log(tasks);
-      res.render("hall", { todoTasks: tasks, user: req.user });
-    });
-});
+// // HALL 
+// app.get('/hall', ensureAuthenticated, (req, res) => {
+//   TodoTask.find({}, (err, tasks) => {
+//       console.log(tasks);
+//       res.render("hall", { todoTasks: tasks, user: req.user });
+//     });
+// });
 
 
 //FLOOR
 app.get('/floor', ensureAuthenticated, (req, res) => {
-  TodoTask.find({'author': 'byrthe'}, (err, tasks) => {
-      console.log(req.user.name);
+  TodoTask.find({'author': req.query.searchInput}, (err, tasks) => {
+      console.log(req.query.searchInput);
       const authorname = req.user.name;
-      res.render("floor", { todoTasks: tasks, user: req.user, authorname});
+      const searchQuery = req.query.searchInput;
+      res.render("floor", { todoTasks: tasks, user: req.user, authorname, searchQuery});
     });
 });
 
-// jacopo's edit to add the user to the post
+
+// DASHBOARD
 app.post('/', async (req, res) => {
   try {
     const todoTask = new TodoTask({ 
