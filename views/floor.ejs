@@ -67,14 +67,18 @@
                                 <p>
                                     <%= details.content %>
                                 </p>
-                                <a href="/edit/<%= details._id %>" class="edit">
-                                <button type="button" class="btn btn-outline-secondary">Edit</button>
-                                <!-- <span class="fas fa-edit">edit</span> -->
+                                <% if(user.name === searchQuery){ %>
+                                  <a href="/edit/<%= details._id %>" class="edit">
+                                  <button type="button" class="btn btn-outline-secondary">Edit</button>
+                                  <!-- <span class="fas fa-edit">edit</span> -->
+                                  </a>
+                                  <a href="/remove/<%= details._id %>" class="remove">
+                                  <button type="button" class="btn btn-outline-secondary">Remove</button>
+                                  <!-- <span class="fas fa-times">remove</span> -->
                                 </a>
-                                <a href="/remove/<%= details._id %>" class="remove">
-                                <button type="button" class="btn btn-outline-secondary">Remove</button>
-                                <!-- <span class="fas fa-times">remove</span> -->
-                                </a>
+                              <% }else{ %>
+
+                              <% } %>
                             </div>
                             <div class="activity__list__footer">
                                 <!-- <span> <i class="fa fa-clock"></i><%= details.date %></span> -->
