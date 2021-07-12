@@ -95,7 +95,7 @@ app.get('/floor', ensureAuthenticated, (req, res) => {
       const authorname = req.user.name;
       const searchQuery = req.query.searchInput;
       res.render("floor", { todoTasks: tasks, user: req.user, authorname, searchQuery});
-    });
+    }).sort({ $natural: -1 });
 });
 
 
