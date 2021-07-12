@@ -80,25 +80,27 @@ app.get("/dashboard", ensureAuthenticated, (req, res) => {
   }).sort({ $natural: -1 });
 });
 
-// HALL
-app.get("/hall", ensureAuthenticated, (req, res) => {
-  TodoTask.find({}, (err, tasks) => {
-    console.log(tasks);
-    res.render("hall", { todoTasks: tasks, user: req.user });
-  });
-});
+// // HALL 
+// app.get('/hall', ensureAuthenticated, (req, res) => {
+//   TodoTask.find({}, (err, tasks) => {
+//       console.log(tasks);
+//       res.render("hall", { todoTasks: tasks, user: req.user });
+//     });
+// });
 
 //FLOOR
-app.get("/floor", ensureAuthenticated, (req, res) => {
-  TodoTask.find({ author: "byrthe" }, (err, tasks) => {
-    console.log(req.user.name);
-    const authorname = req.user.name;
-    res.render("floor", { todoTasks: tasks, user: req.user, authorname });
-  });
+app.get('/floor', ensureAuthenticated, (req, res) => {
+  TodoTask.find({'author': req.query.searchInput}, (err, tasks) => {
+      console.log(req.query.searchInput);
+      const authorname = req.user.name;
+      const searchQuery = req.query.searchInput;
+      res.render("floor", { todoTasks: tasks, user: req.user, authorname, searchQuery});
+    }).sort({ $natural: -1 });
 });
 
-// jacopo's edit to add the user to the post
-app.post("/", async (req, res) => {
+
+// DASHBOARD
+app.post('/', async (req, res) => {
   try {
     const todoTask = new TodoTask({
       content: req.body.content,

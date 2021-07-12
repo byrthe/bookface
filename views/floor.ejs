@@ -40,7 +40,7 @@
             <div class="profile-cover__info">
                 
                 <ul class="nav">
-                    <li><h3 class="h3">This is <%= authorname %>'s feed</h3></li>
+                    <li><h3 class="h3">Showing results for "<%= searchQuery %>"</h3></li>
                 </ul>
             </div>
             <form class="d-flex" method="GET" action="/floor">
@@ -80,7 +80,8 @@
                                 <!-- <span> <i class="fa fa-clock"></i><%= details.date %></span> -->
                                 
                                      <!-- <i class="form-control2" data-feather="at-sign"></i> -->
-                                     <span>     <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit', hour: 'numeric', minute: 'numeric'}).format(new Date()) %></span>
+                                     <span> <i class="fa fa-clock"></i><%= details.date.toString().substring(4, 25); %></span>
+                                     <!-- <span>     <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit', hour: 'numeric', minute: 'numeric'}).format(new Date()) %></span> -->
                                 <!-- <span>     <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></span> -->
                                     <!-- <span> <i class="fa fa-clock"></i><%= details.date.toUTCString().substring(4, 25); %></span>    -->
                             </div>
