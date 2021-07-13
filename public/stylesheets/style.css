@@ -845,14 +845,14 @@ body {
 .test {
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.4);
+  text-align: center;
   padding: 3rem;
   border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
   border-left: 1px solid rgba(255, 255, 255, 0.5);
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(15px);
   box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.4);
-  text-align: center;
 }
 
 h1 {
@@ -912,9 +912,9 @@ h1 {
 .test2 {
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.2);
   padding: 3rem;
   border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
   border-left: 1px solid rgba(255, 255, 255, 0.5);
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(15px);

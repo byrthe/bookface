@@ -49,7 +49,7 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
     console.log("Connected to db!");
-    app.listen(process.env.PORT || 3000, () =>
+    app.listen(process.env.PORT || 5000, () =>
       console.log("Server Up and running")
     );
   }
@@ -73,13 +73,13 @@ app.use("/users", require("./routes/users"));
 
 // GET
 app.get("/dashboard", ensureAuthenticated, (req, res) => {
-  TodoTask.find({}, (err, tasks) => {
+  TodoTask.find({'author': req.user.name}, (err, tasks) => {
+    console.log(req.user.name);
     const authorname = req.user.name;
     const searchQuery = req.query.searchInput;
     res.render("dashboard", { todoTasks: tasks, user: req.user, authorname, searchQuery});
   }).sort({ $natural: -1 });
-}); 
-
+});
 // // HALL
 // app.get('/hall', ensureAuthenticated, (req, res) => {
 //   TodoTask.find({}, (err, tasks) => {
@@ -104,6 +104,14 @@ app.get("/floor", ensureAuthenticated, (req, res) => {
   }).sort({ $natural: -1 });
 });
 
+app.get('/feed', ensureAuthenticated, (req, res) => {
+  TodoTask.find({}, (err, tasks) => {
+    console.log("hello on the feed");
+    console.log(tasks);
+    res.render("feed", { todoTasks: tasks, user: req.user });
+  }).sort({ $natural: -1 });
+});
+
 // DASHBOARD
 app.post("/", async (req, res) => {
   try {
@@ -125,11 +133,15 @@ app
   .get((req, res) => {
     const id = req.params.id;
     console.log(id);
-    TodoTask.find({}, (err, tasks) => {
+    console.log(req.user.name);
+    const authorname = req.user.name;
+    const searchQuery = req.query.searchInput;
+    TodoTask.find({'author': req.user.name}, (err, tasks) => {
       res.render("dashboardEdit", {
         todoTasks: tasks,
         idTask: id,
         user: req.user,
+        authorname, searchQuery,
       });
     }).sort({ $natural: -1 });
   })
