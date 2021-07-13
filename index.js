@@ -28,7 +28,7 @@ app.use(
     secret: "secret",
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 60000000 },
   })
 );
 app.use(passport.initialize());
@@ -73,12 +73,12 @@ app.use("/users", require("./routes/users"));
 
 // GET
 app.get("/dashboard", ensureAuthenticated, (req, res) => {
-  TodoTask.find({}, (err, tasks) => {
-    console.log("hello on the dashboard");
-    console.log(tasks);
-    res.render("dashboard", { todoTasks: tasks, user: req.user });
+  TodoTask.find({'author': req.user.name}, (err, tasks) => {
+    const authorname = req.user.name;
+    const searchQuery = req.query.searchInput;
+    res.render("dashboard", { todoTasks: tasks, user: req.user, authorname, searchQuery});
   }).sort({ $natural: -1 });
-});
+}); 
 
 // // HALL 
 // app.get('/hall', ensureAuthenticated, (req, res) => {
