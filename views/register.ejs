@@ -44,7 +44,7 @@
     <form action="/users/register" method="POST">
     <div class="ecart">
         <label for="name">Name</label>
-        <input
+        <input class="inputed2"
           type="name"
           name="name"
           placeholder="Enter Name"
@@ -53,7 +53,7 @@
     </div>
     <div class="ecart">
         <label for="email">Email</label>
-        <input
+        <input class="inputed2"
           type="email"
           name="email"
           placeholder="Enter Email"
@@ -62,13 +62,14 @@
       </div>
       <div class="ecart">
         <label for="birthdate">Birthdate</label>
-        <input type="birthdate" name="birthdate" placeholder="dd/mm/yyyy" 
+        <input class="inputed2"
+        type="birthdate" name="birthdate" placeholder="dd/mm/yyyy" 
             value="<%= typeof birthdate != 'undefined' ? birthdate : '' %>"
             />
       </div>
       <div  class="ecart">
         <label for="password">Password</label>
-        <input
+        <input class="inputed2"
           type="password"
           name="password"
           placeholder="Create Password"
@@ -77,7 +78,7 @@
       </div>
       <div  class="ecart">
         <label for="password2">Confirm PW</label>
-        <input
+        <input class="inputed2"
           type="password"
           name="password2"
           placeholder="Confirm Pw"
