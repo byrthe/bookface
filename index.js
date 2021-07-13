@@ -80,7 +80,7 @@ app.get("/dashboard", ensureAuthenticated, (req, res) => {
   }).sort({ $natural: -1 });
 }); 
 
-// // HALL 
+// // HALL
 // app.get('/hall', ensureAuthenticated, (req, res) => {
 //   TodoTask.find({}, (err, tasks) => {
 //       console.log(tasks);
@@ -89,18 +89,23 @@ app.get("/dashboard", ensureAuthenticated, (req, res) => {
 // });
 
 //FLOOR
-app.get('/floor', ensureAuthenticated, (req, res) => {
-  TodoTask.find({'author': req.query.searchInput}, (err, tasks) => {
-      console.log(req.query.searchInput);
-      const authorname = req.user.name;
-      const searchQuery = req.query.searchInput;
-      res.render("floor", { todoTasks: tasks, user: req.user, authorname, searchQuery});
-    }).sort({ $natural: -1 });
+app.get("/floor", ensureAuthenticated, (req, res) => {
+  TodoTask.find({ author: req.query.searchInput }, (err, tasks) => {
+    console.log(req.query.searchInput);
+    const authorname = req.user.name;
+    const searchQuery = req.query.searchInput;
+    res.render("floor", {
+      todoTasks: tasks,
+      user: req.user,
+      authorname,
+      searchQuery,
+    });
+    console.log(req.user);
+  }).sort({ $natural: -1 });
 });
 
-
 // DASHBOARD
-app.post('/', async (req, res) => {
+app.post("/", async (req, res) => {
   try {
     const todoTask = new TodoTask({
       content: req.body.content,
