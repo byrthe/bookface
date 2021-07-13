@@ -74,11 +74,11 @@ app.use("/users", require("./routes/users"));
 // GET
 app.get("/dashboard", ensureAuthenticated, (req, res) => {
   TodoTask.find({}, (err, tasks) => {
-    console.log("hello on the dashboard");
-    console.log(tasks);
-    res.render("dashboard", { todoTasks: tasks, user: req.user });
+    const authorname = req.user.name;
+    const searchQuery = req.query.searchInput;
+    res.render("dashboard", { todoTasks: tasks, user: req.user, authorname, searchQuery});
   }).sort({ $natural: -1 });
-});
+}); 
 
 // // HALL
 // app.get('/hall', ensureAuthenticated, (req, res) => {
