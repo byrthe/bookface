@@ -73,7 +73,7 @@ app.use("/users", require("./routes/users"));
 
 // GET
 app.get("/dashboard", ensureAuthenticated, (req, res) => {
-  TodoTask.find({'author': req.user.name}, (err, tasks) => {
+  TodoTask.find({}, (err, tasks) => {
     const authorname = req.user.name;
     const searchQuery = req.query.searchInput;
     res.render("dashboard", { todoTasks: tasks, user: req.user, authorname, searchQuery});
